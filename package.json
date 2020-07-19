@@ -1,0 +1,15 @@
+{
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "my first nodejs app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server"
+  },
+  "author": "avinash",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
+}
