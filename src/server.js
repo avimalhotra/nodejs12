@@ -1,12 +1,22 @@
-require('colors');
-var ext=require('./ext');
-const user=require('./user');
-//var mod=require("./models");
-//var [a,b]=[require('./a'), require('./b')];
+// const excel=require('read-excel-file/node');
+// const fs=require('fs');
 
-//console.log(ext.fun(1));
-//console.log(ext.obj.a, ext.obj.r );
-//console.log(ext.area );
-//console.log(ext.month);
+// excel(fs.createReadStream('src/my-students.xlsx')).then((rows) => {
+//         console.log(rows);
+//   });
 
-//console.log(`user is ${ user.name},  id is ${user.id} and city is ${user.city}`);
+
+const path=require('path');
+
+
+//console.log(path.normalize('./src'))
+//console.log(path.basename('./src/img/svg/star.svg','.svg'))
+//console.log(path.dirname('src/svg/'));
+//console.log(path.extname('src/svg/pic.svg'));
+//console.log(path.resolve(__filename));
+//console.log(path.resolve('src/public'));
+//console.log(path.resolve(__dirname,'public'));
+//console.log(path.resolve('src','public'));
+
+console.log(path.resolve('src','public'));
+
