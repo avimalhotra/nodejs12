@@ -1,22 +1,63 @@
-// const excel=require('read-excel-file/node');
-// const fs=require('fs');
 
-// excel(fs.createReadStream('src/my-students.xlsx')).then((rows) => {
-//         console.log(rows);
-//   });
+const fs=require('fs');
+const event=require('events').EventEmitter;
+let emitter=new event();
+
+module.exports=emitter;
+
+ fs.ReadStream('src/data.txt').on("open",()=>{
+     console.log("file is open");
+ });
+
+emitter.on("login",(x)=>{
+    console.log(`login process started at ${x}` );
+});
+emitter.on("login",(y)=>{
+    console.log(`login session started at ${y}` );
+});
+emitter.on("sessionStart",(x)=>{
+    console.log(` session started` );
+    x.handled=true;
+});
+emitter.on("sessionStart",(x)=>{
+    if( x.handled==true){
+        console.log(` session already started` );
+    }
+    else{
+        console.log(` session not started` )
+    }
+});
+
+emitter.once("callonce",()=>{
+    console.log(" only once");
+});
+
+function eventHandler(){
+    console.log(`handled`);
+    
+    // unsubscribe
+    emitter.removeListener("done",eventHandler);
+}
+
+emitter.on('done',eventHandler);
 
 
-const path=require('path');
+
+// import login and account
+let login=require('./login');
+let account=require('./account');
 
 
-//console.log(path.normalize('./src'))
-//console.log(path.basename('./src/img/svg/star.svg','.svg'))
-//console.log(path.dirname('src/svg/'));
-//console.log(path.extname('src/svg/pic.svg'));
-//console.log(path.resolve(__filename));
-//console.log(path.resolve('src/public'));
-//console.log(path.resolve(__dirname,'public'));
-//console.log(path.resolve('src','public'));
 
-console.log(path.resolve('src','public'));
+//emitter.emit("login",10);
+//emitter.emit("login",12);
+//emitter.emit('sessionStart',{ handled:false})
 
+//emitter.emit('callonce');
+
+
+//emitter.emit('done');        // will emit
+//emitter.emit('done');         // will not emit
+
+emitter.emit("logIn",10);
+emitter.emit("account");
