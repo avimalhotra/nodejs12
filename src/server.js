@@ -1,63 +1,39 @@
-
+const http=require('http');
+const ip='127.0.0.1';
 const fs=require('fs');
-const event=require('events').EventEmitter;
-let emitter=new event();
 
-module.exports=emitter;
+const port=3000;
 
- fs.ReadStream('src/data.txt').on("open",()=>{
-     console.log("file is open");
- });
+// http.createServer((req,res)=>{
+//     res.end("hello node http server");
+// }).listen(3000);
 
-emitter.on("login",(x)=>{
-    console.log(`login process started at ${x}` );
+
+var server=http.createServer((req,res)=>{
+    //res.end(req.url);
+    //res.end(req.method);
+    //res.end(req.httpVersion);
+
+    //res.statusCode=200;
+    //res.setHeader('Content-Type','text/html');
+    //res.writeHead(200,{'Content-Type':'text/html'});
+    //res.end("hello node js");
+
+    fs.readFile('./src/home.html',(err,data)=>{
+        if(err){
+            res.writeHead(404);
+            res.write(err);
+            res.end();
+        }
+        else{
+            res.writeHead(200,{'Content-Type':'text/html'});
+            res.write(data);
+            res.end();
+        }
+       
+    })
 });
-emitter.on("login",(y)=>{
-    console.log(`login session started at ${y}` );
-});
-emitter.on("sessionStart",(x)=>{
-    console.log(` session started` );
-    x.handled=true;
-});
-emitter.on("sessionStart",(x)=>{
-    if( x.handled==true){
-        console.log(` session already started` );
-    }
-    else{
-        console.log(` session not started` )
-    }
-});
 
-emitter.once("callonce",()=>{
-    console.log(" only once");
-});
-
-function eventHandler(){
-    console.log(`handled`);
-    
-    // unsubscribe
-    emitter.removeListener("done",eventHandler);
-}
-
-emitter.on('done',eventHandler);
-
-
-
-// import login and account
-let login=require('./login');
-let account=require('./account');
-
-
-
-//emitter.emit("login",10);
-//emitter.emit("login",12);
-//emitter.emit('sessionStart',{ handled:false})
-
-//emitter.emit('callonce');
-
-
-//emitter.emit('done');        // will emit
-//emitter.emit('done');         // will not emit
-
-emitter.emit("logIn",10);
-emitter.emit("account");
+server.listen(port,ip,()=>{
+    console.log(`server running at http://${ip}:${port}`);
+})
