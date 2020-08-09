@@ -1,39 +1,38 @@
-const http=require('http');
-const ip='127.0.0.1';
-const fs=require('fs');
+const express=require('express');
 
-const port=3000;
+let app=express();
 
-// http.createServer((req,res)=>{
-//     res.end("hello node http server");
-// }).listen(3000);
+// express().use((req,res)=>{
+//     res.end('hello world')
+// }).listen(8080);
 
+//app.use(express.static('src/public'));
 
-var server=http.createServer((req,res)=>{
-    //res.end(req.url);
-    //res.end(req.method);
-    //res.end(req.httpVersion);
-
-    //res.statusCode=200;
-    //res.setHeader('Content-Type','text/html');
-    //res.writeHead(200,{'Content-Type':'text/html'});
-    //res.end("hello node js");
-
-    fs.readFile('./src/home.html',(err,data)=>{
-        if(err){
-            res.writeHead(404);
-            res.write(err);
-            res.end();
-        }
-        else{
-            res.writeHead(200,{'Content-Type':'text/html'});
-            res.write(data);
-            res.end();
-        }
-       
-    })
+app.use((req,res,next)=>{
+    console.log("app running");
+    next()
 });
 
-server.listen(port,ip,()=>{
-    console.log(`server running at http://${ip}:${port}`);
+app.get("/",(req,res)=>{
+    //console.log(req.url);
+    res.status(200).send("hello express");
+});
+
+app.post("/postdata",(req,res)=>{
+    res.status(200).send("hello express post");
+});
+
+app.get("/admin",(req,res)=>{
+    //console.log(req.url);
+    res.status(200).send("hello admin");
+});
+
+
+
+/* Wildcard handler */
+app.get('/**',(req,res)=>{
+    res.status(404).send("PAGE not found");
+});
+app.listen(8080,()=>{
+    console.log(`server running at http://127.0.0.1:8080`)
 })
