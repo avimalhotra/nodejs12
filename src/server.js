@@ -4,6 +4,7 @@ var cookie=require('cookie-parser');
 var bodyParser=require('body-parser');
 var session=require('express-session');
 var parseurl=require('parseurl');
+require('dotenv').config()
 
 
 app.use(cookie());
@@ -33,7 +34,6 @@ app.use( (req, res, next)=>{
   
     // get the url pathname
     var pathname = parseurl(req).pathname
-  
     // count the views
     req.session.views[pathname] = (req.session.views[pathname] || 0) + 1;
   
@@ -46,7 +46,7 @@ app.get("/",(req,res)=>{
     //res.status(200).send(req.cookies);
     //res.status(200).send(req.signedCookies);
     //res.status(200).send(req.sessionID);
-    res.send('Session Views :  '+ req.session.views['/'] + ' times');
+    res.send('Session Views :  '+ req.session.views['/'] + ' times,, session id'+ req.sessionID );
 });
 
 app.get("/setcookie",(req,res)=>{
@@ -104,6 +104,6 @@ app.use('/user',user);
 app.get('/**',(req,res)=>{
     res.status(404).send("PAGE not found");
 });
-app.listen(3000,()=>{
+app.listen(process.env.PORT,()=>{
     console.log(`server running at http://127.0.0.1:3000`)
 });
