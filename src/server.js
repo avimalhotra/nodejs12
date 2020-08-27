@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
     cookie:{secure:false,maxAge:86400}
 }))
 
-//app.use(express.static('src/public'));
+app.use(express.static('src/public'));
 
 app.use((req,res,next)=>{
     console.log('Session starts at : %d', Date.now());
