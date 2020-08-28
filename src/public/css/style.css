@@ -1,3 +1,5 @@
 *{ margin: 0; box-sizing: border-box;}
 body{ font-family: Arial, Helvetica, sans-serif;}
-.container{ width: 1200px; margin: auto; }
+.container{ max-width: 1200px; margin: auto; }
+.box{ padding:10px 0;}
+button{ padding:8px 10px; border:1px solid; background:transparent; border-radius: 6px; cursor: pointer;}

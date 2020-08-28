@@ -4,7 +4,7 @@ var cookie=require('cookie-parser');
 var bodyParser=require('body-parser');
 var session=require('express-session');
 var parseurl=require('parseurl');
-require('dotenv').config()
+require('dotenv').config();
 
 
 app.use(cookie());
@@ -104,6 +104,6 @@ app.use('/user',user);
 app.get('/**',(req,res)=>{
     res.status(404).send("PAGE not found");
 });
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT,process.env.IP,()=>{
     console.log(`server running at http://127.0.0.1:3000`)
 });
