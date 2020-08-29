@@ -8,6 +8,7 @@ require('dotenv').config();
 
 
 app.use(cookie());
+app.use(bodyParser.text());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); 
 
@@ -31,7 +32,6 @@ app.use( (req, res, next)=>{
     if (!req.session.views) {
       req.session.views = {}
     }
-  
     // get the url pathname
     var pathname = parseurl(req).pathname
     // count the views
@@ -79,6 +79,32 @@ app.get("/login",(req,res)=>{
    // res.send(`Thanks ${req.query.username}.`);
     res.json({"data":req.query})
 });
+
+
+var data=[
+        [1,23,45,66,34,56,78],
+        [2,23,45,66,34,56,78],
+        [3,23,45,66,34,56,78],
+        [4,23,45,66,34,56,78],
+        [5,23,45,66,34,56,78],
+    ];
+    
+
+app.get("/api",(req,res)=>{
+    res.header('Access-Control-Allow-Origin',"*");
+   return res.status(200).send(data);
+})
+app.post("/api",(req,res)=>{
+    var input=req.body.split(":")[1];              // from ajax send method
+    input=Number(input)-1;
+    res.header('Access-Control-Allow-Origin',"*");
+   
+    return res.status(200).send(data[input]);
+
+})
+
+
+
 
 app.post("/login",(req,res)=>{
    
