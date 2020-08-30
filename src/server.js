@@ -1,11 +1,26 @@
 const express=require('express');
 let app=express();
+var path=require('path');
 var cookie=require('cookie-parser');
 var bodyParser=require('body-parser');
 var session=require('express-session');
 var parseurl=require('parseurl');
 require('dotenv').config();
+app.use(express.static('src/public'));
 
+const nunjucks=require("nunjucks");
+
+//nunjucks.configure('public', { autoescape: true });
+
+nunjucks.configure(path.resolve(__dirname,'public'),{
+    express:app,
+    autoscape:true,
+    noCache:false,
+    watch:true
+}); 
+
+//app.set('view engine', 'ejs');
+//app.set('views', path.join(__dirname, 'public/ejs'));
 
 app.use(cookie());
 app.use(bodyParser.text());
@@ -21,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
     cookie:{secure:false,maxAge:86400}
 }))
 
-app.use(express.static('src/public'));
+
 
 app.use((req,res,next)=>{
     console.log('Session starts at : %d', Date.now());
@@ -40,13 +55,17 @@ app.use( (req, res, next)=>{
     next()
   });
 
+
 app.get("/",(req,res)=>{
     //res.status(200).send("home page")
     //res.status(200).send(res.json({"search":req.query}));
     //res.status(200).send(req.cookies);
     //res.status(200).send(req.signedCookies);
     //res.status(200).send(req.sessionID);
-    res.send('Session Views :  '+ req.session.views['/'] + ' times,, session id'+ req.sessionID );
+    //res.send('Session Views :  '+ req.session.views['/'] + ' times,, session id'+ req.sessionID );
+    //.render("index",{ month:["jan","feb"],user:{ name:"abcd",id:212  }});
+    //res.render("index.html",{ name:"avi" });
+    res.render("home.html",{ month:["jan","feb"],user:{ name:"abcd",id:212  }});
 });
 
 app.get("/setcookie",(req,res)=>{
@@ -108,12 +127,13 @@ app.post("/api",(req,res)=>{
 
 app.post("/login",(req,res)=>{
    
-    console.log(`Name is ${req.body.username} and password is ${req.body.userpass}`);
+    //console.log(`Name is ${req.body.username} and password is ${req.body.userpass}`);
     //res.send(req.query)
     //res.json(req.body);
 
-    res.json({"parameters":req.body});
-   
+    //res.json({"parameters":req.body});
+   //res.render("login",{user:{name:req.body.username, id:req.body.userpass}})
+   res.render("login.html",{user:{name:req.body.username, id:req.body.userpass}})
 });
 
 // router

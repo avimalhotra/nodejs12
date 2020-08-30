@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Express</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <div class="container">
+        <%- include('header'); %>
+        <h2>Name is <%= user.name %> and id is <%= user.id %> </h2> 
+        <% if (user) { %>
+            <p><%= user.name %></h2>
+            <p><%= user.id %></h2>
+        <% } %>
+        <hr>
+       
+
+        <form action="/login" method="post">
+            <div class="box">
+            <label>
+                Name: <input type="text" required name="username">
+               
+            </label>
+            </div>
+            <div class="box">
+            <label>
+                Password: <input type="password" required name="userpass">
+
+            </label>
+            </div>
+            <button>Send</button>
+        </form>
+        <ol>
+            <% month.forEach(function(name){ %>
+                <li><%= name %></li>
+            <% }) %>
+        </ol>
+        <%- include('footer'); %>
+    </div>
+</body>
+</html>

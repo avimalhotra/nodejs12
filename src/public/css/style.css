@@ -3,3 +3,5 @@ body{ font-family: Arial, Helvetica, sans-serif;}
 .container{ max-width: 1200px; margin: auto; }
 .box{ padding:10px 0;}
 button{ padding:8px 10px; border:1px solid; background:transparent; border-radius: 6px; cursor: pointer;}
+header{ padding: 10px; background:#cfc;}
+footer{ padding: 10px; background:#fcc;}

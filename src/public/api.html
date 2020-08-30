@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+</head>
+<body>
+    <h1>AJAX API</h1>
+    <h2></h2>
+    <img class="loader" src="ajax/loader.gif" alt="" hidden="">
+    <input type="number" maxlength="1">
+    <button>AJAX API</button>
+    <div class="data"></div>
+<script>
+    "use strict"
+
+    document.querySelector("input").onkeyup=function(){
+    
+    document.querySelector(".loader").removeAttribute("hidden");
+
+    var ajax=new XMLHttpRequest();  // xhr
+      
+    ajax.open("post","http://127.0.0.1:3000/api");
+    ajax.send("index:"+ this.value);
+      
+    ajax.onreadystatechange=function(){
+   
+        
+    if( this.readyState==0 || this.readyState==1 || this.readyState==2 || this.readyState==3 ){
+            console.log("Data Processing");   
+        }
+    else if(this.readyState==4 && this.status==200){
+        
+        
+        document.querySelector(".data").innerHTML="<h2>Data Fetching Completed</h2>";
+         
+        var t=this.response;       // string 
+        
+       document.querySelector(".data").innerHTML+="<p>"+ t+"</p>";
+       /*var p=JSON.parse(t);            // Object
+
+        for( var i in p){
+            var para=document.createElement("p");
+            para.innerHTML+=i + " &rarr; "  + p[i] ;
+            document.querySelector(".data").appendChild(para)
+        }*/
+        document.querySelector(".loader").setAttribute("hidden","");
+       }
+        else{
+            document.querySelector(".data").innerHTML="<pre>Could Not Fetch  Data</pre>";
+            document.querySelector(".loader").setAttribute("hidden","");
+        }
+       
+            
+    
+    }
+    
+    
+  }
+    
+    
+</script>
+</body>
+</html>

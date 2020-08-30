@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Express</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <div class="container">
+        {% include "header.html" %}
+       
+       <ol>
+        {% for i,j in user %}   
+             <li>{{ i }}</li>
+        {% endfor %}    
+    </ol>
+       <ol>
+        {% for i in month %}   
+             <li>{{ i }}</li>
+        {% endfor %}    
+    </ol>
+       <img src="car.png" alt="">
+
+        <form action="/login" method="post">
+            <div class="box">
+            <label>
+                Name: <input type="text" required name="username">
+               
+            </label>
+            </div>
+            <div class="box">
+            <label>
+                Password: <input type="password" required name="userpass">
+
+            </label>
+            </div>
+            <button>Send</button>
+        </form>
+        {% include "footer.html" %}
+    </div>
+</body>
+</html>
